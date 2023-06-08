@@ -132,8 +132,6 @@ padding: 8px 8px;
   width:100%;
 margin: 0 auto;
 gap: 1em;
-
-
 .box{
   background-image: url(../img/R.jpg);
   background-position: center;
@@ -143,12 +141,11 @@ background-size: cover;
   cursor: pointer;
     box-shadow: 0 0 10px rgba(152, 164, 161, 0.868);
     @media  screen and (min-width: 440px){
-        width: 88%;
+        width: 95%;
         height: 180px;
         margin-bottom: 5%;
         display: flex;
-    
-    
+        margin: 0;
      }
      @media  screen and (min-width: 850px){
         width: 90%;
@@ -494,6 +491,7 @@ align-items: center;
         height: 180px;
         margin-bottom: 5%;
         display: flex;
+        justify-content: center;
     
 
         

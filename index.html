@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Movie DB</title>
+ 
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+  <link rel="stylesheet" href="css/styles.min.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+</head>
+<body>
+<!-- head de la page qui contient la navigation et le logo -->
+<header>
+  <div class="scroll-line"></div>
+   <!-- la navigation -->
+  <div class="navigation">
+   <!-- -----------le logo -------------- -->
+   <div class="logo">
+    <a href="index.html"> 
+        <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg" alt=""> 
+   </a>
+  </div>
+  <nav>
+    <a href="index.html" class="nav-link" title="Home">Home</a>
+    <a href="rated.html" class="nav-link">Top-rated</a>
+    <a href="tv.html" class="nav-link">TV</a>
+    <a href="popular.html" class="nav-link">Popular</a>
+  </nav>
+    
+    
+  </div>
+
+</header>
+<!--------------- fin du header ---------------->
+<div class="baground">
+  <div class="title">
+    <h3>Bienvenue,</h3>
+    <h3>Des millions de films, émissions télévisées et artistes...</h3>
+  </div>
+  <div class="recherche">
+    <input type="text" >
+   <button><a href="">Search</a></button>
+  </div>
+</div>
+<!-- parti du film aliatoire qui s'affiche au bout da la page -->
+  <div class="film">
+    <img class="film-image" src="" alt="">
+    <div class="detail">
+      <h3 class="film-title"></h3>
+      <p id="modal-release"></p>
+      <p id="modal-review"></p>
+      <p id="vote-count"></p>
+      <button class="plus">+</button>
+    </div>
+    <div class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="modal-title"></h2>
+        <img id="modal-image" src="" alt="">
+        <p id="modal-overview"></p>
+        <p id="modal-release"></p>
+        <p id="modal-review"></p>
+        <p id="vote-count"></p>
+        <!-- Ajoutez ici les autres informations que vous souhaitez afficher -->
+      </div>
+    </div>
+  </div>
+
+  <div class="all">
+    
+
+    <div class="contenu-droit">
+     
+      <div class="btn">
+        <button class="film-pop-btn" >Aujourd'hui</button>
+        <button class="film-pop-btn" >Cette semaine</button>
+      </div>
+     
+      <div class="wrapper">
+      </div>
+
+      <div class="titre-bandes">
+        <span>Les bandes-vidéos</span>
+      </div>
+      <div class="baground-video">
+        <div class="swiper-container">
+          <div class="swiper-wrapper bandes"></div>
+        </div>
+      </div>
+
+      <div class="btn-rated">
+        <div class="titre-bandes">
+          <a href="rated.html"><span>Top rated</span></a>
+        </div>
+       
+      </div>
+      <div class="swiper-container top-rated">
+        <div class="swiper-wrapper"></div>
+      
+      </div>
+     
+      
+
+      <div class="titre-bandes">
+        <a href="tv.html"><span>Séries télévisées</span></a>
+      </div>
+      <div class="swiper-container tv">
+        <div class="swiper-wrapper"></div>
+       
+      </div>
+      <div class="side-bar" > 
+        <div>
+          <h2>Rejoignez-nous !</h2>
+          <p> Get access to maintain your own custom personal lists, track what you've seen and search and filter for what to watch next—regardless if it's in theatres, on TV or available on popular streaming services like Netflix, Disney Plus, Amazon Prime Video, Hayuet Be TV Go.</p>
+        </div>
+      <div>
+        <ul>
+         <span>></span> Profitez de TMDB sans publicité,<br>
+         <span>></span> Maintenez une liste de suivi personnelle,<br>
+         <span>></span>Filtrez selon vos abonnements de streaming souscrits et trouvez quelque chose à regarder,<br>
+         <span>></span>Enregistrez les films et émissions télévisées que vous avez vus,<br>
+         <span>></span>Construisez des listes personnalisées,<br>
+         <span>></span>Contribuez à améliorer notre base de données.<br>
+        </ul>
+        <button class="btn-side"><a href="inscription.html">Inscription</a></button>
+      </div>
+      </div>
+    </div>
+    
+  </div>
+<footer>
+  <div class="all-footer">
+    <div class="logo-footer">
+      <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg" alt="">
+    </div>
+    <div class="content">
+      <div class="content-1">
+        <h3>Menu </h3>
+           <a href="rated.html">Top-rated</a>
+           <a href="tv.html">Séries télévisées</a>
+           <a href="popular.html">Popular</a>
+      </div>
+      <div class="content-2">
+        <h3>COMMUNAUTÉ</h3>
+           <a href="rated.html"> Règles</a>
+           <a href="tv.html"> Conversations</a>
+           <a href="popular.html"> Top contributions</a>
+      </div>
+      <div class="content-2">
+        <h3>MENTIONS LÉGALES</h3>
+           <a href="rated.html"> Conditions d'utilisation</a>
+           <a href="tv.html">  Conditions d'utilisation API</a>
+           <a href="popular.html"> Politique de confidentialité</a>
+      </div>
+      <div class="content-2">
+        <h3>S'IMPLIQUER</h3>
+           <a href="rated.html"> Bible des contributions</a>
+           <a href="tv.html">  Ajouter un film</a>
+           <a href="popular.html">  Ajouter une émission TV</a>
+      </div>
+    </div>
+  </div>
+</footer>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+  <script src="https://kit.fontawesome.com/5c9c13cceb.js" crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

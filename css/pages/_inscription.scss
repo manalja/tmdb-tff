@@ -1,0 +1,70 @@
+
+
+.all-inscr{
+    a{
+        text-decoration: none;
+        color: #5eaaa6;
+    }
+    h2{
+        margin-left: 1%;
+        margin-bottom: 30px;
+        color: #5eaaa6;
+    }
+   
+   
+    @media  screen and (min-width: 440px) {
+        height: 75vh;
+        width: 450px;
+        margin: 0 auto;
+    }
+    @media  screen and (min-width: 850px) {
+        height: 70vh;
+        width: 800px;
+        margin: 0 auto;
+    }
+    @media  screen and (min-width: 1200px) {
+        height: 70vh;
+        width: 1000px;
+        margin: 0 auto;
+    }
+
+    form{
+        display: flex;
+        flex-direction: column;
+        .champ{
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            input{
+padding: 8px;
+        }
+        label{
+            margin-bottom: 5px;
+           color: black;
+           font-weight: bold;
+           font-family: "Source Sans Pro",Arial,sans-serif;
+        }
+    }
+    }
+.btn-inscr{
+    margin-top: 30px;
+    font-weight: bold;
+    button{
+        margin-right: 5px;
+        font-weight: bold;
+        padding: 15px;
+        border: 0;
+        font-size: 16px;
+        cursor: pointer;
+        color: white;
+        background: #5eaaa6;
+        border-radius: 10px;
+    }
+    button:nth-of-type(2){
+        background: white;
+        color: #5eaaa6;
+        
+    }
+   
+}
+}

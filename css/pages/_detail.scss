@@ -1,0 +1,233 @@
+
+h1{
+ text-align: center;
+ background: linear-gradient(-45deg, #FFC796, #eb94ad 100%);
+ padding: 8px;
+}
+.actors-container{
+    display: flex;
+    img{
+        width: 100px;
+    }
+   
+}
+.bg-detail{
+    width: 1850px;
+    margin-bottom: 20px;
+    background: linear-gradient(-45deg, #d1ff9676, #88e7e2 100%);
+    @media  screen and (min-width: 440px){
+        width: 100%;
+    }
+    @media  screen and (min-width: 1200px){
+       width: 100%;
+    }
+}
+
+#movieDetails{
+    @media  screen and (min-width: 440px) {
+    margin: 0 auto;
+      padding: 20px;
+        width: 100%;
+        .vote{
+            font-size: 18px;
+            border: 3px solid #24a17184;
+            color: black;
+            position: absolute;
+            left: 45%;
+            top: 17%;
+            z-index: 2;
+            width: 50px;
+            height: 50px;
+         display: flex;
+      justify-content: center;
+      align-items: center;
+            background: #fefefe;
+            border-radius: 30px;
+           
+        
+        }
+    }
+    @media  screen and (min-width: 850px){
+        display: flex;
+        gap: 0.2em;
+        .vote{
+            font-size: 18px;
+            border: 3px solid #24a17184;
+            color: black;
+            position: absolute;
+            left: 42%;
+            top: 40%;
+            z-index: 2;
+            width: 50px;
+            height: 50px;
+            padding: 8px;
+            background: #fefefe;
+            border-radius: 30px;
+           
+        
+        }
+    }
+    @media  screen and (min-width: 1200px){
+        width: 1200px;
+        margin: 0 auto;
+        gap: 0.2;
+        display: flex;
+       
+        .vote{
+            font-size: 18px;
+            border: 3px solid #24a17184;
+            color: black;
+            position: absolute;
+            left: 30%;
+            top: 42%;
+            z-index: 2;
+            width: 50px;
+            height: 50px;
+            padding: 10px;
+          
+            background: #fefefe;
+            border-radius: 30px;
+           
+        
+        }
+    }
+    @media  screen and (min-width: 1500px){
+        width: 1200px;
+        margin: 0 auto;
+        gap: 0.2;
+        display: flex;
+        align-items: center;
+       
+        .vote{
+            font-size: 18px;
+            border: 3px solid #24a17184;
+            color: black;
+            position: absolute;
+            left: 38.5%;
+            top: 42%;
+            z-index: 2;
+            width: 50px;
+            height: 50px;
+            padding: 10px;
+            background: #fefefe;
+            border-radius: 30px;
+           
+        
+        }
+    }
+    .text{
+        @media  screen and (min-width: 440px){
+            width: 400px;
+        }
+        .actor-images{
+            margin-top: 15px;
+            width: 100%;
+            @media  screen and (min-width: 440px){
+                img{
+                    width: 100px;
+                    height: 100px;
+                    object-fit: cover;
+                    border-radius: 100px;
+                    margin-right: 20px;
+                    border: 1px solid black;
+                }
+        
+            }
+            @media  screen and (min-width: 850px){
+                width: 100%;
+                img{
+                    width: 100px;
+                    height: 100px;
+                    object-fit: cover;
+                    border-radius: 100px;
+                    margin-right: 20px;
+                    border: 1px solid black;
+                }
+            }
+            @media  screen and (min-width: 1200px){
+                img{
+                    width: 100px;
+                    height: 100px;
+                    object-fit: cover;
+                    border-radius: 100px;
+                    margin-right: 20px;
+                    border: 1px solid black; 
+                }
+            }
+           
+        }
+        line-height: 25px;
+        @media  screen and (min-width: 440px){
+            width: 99%;
+        }
+        @media  screen and (min-width: 850px){
+            width: 80%;
+        }
+        @media  screen and (min-width: 1200px){
+            width: 60%;
+
+           
+            }
+        }
+        .fa-sharp{
+            padding-right: 20px;}
+             
+.fa-solid{
+    cursor: pointer;
+    padding-right: 30px;
+}
+    
+    
+
+    .movie-poster{
+        width: 100%;
+        height: 100%;
+        @media  screen and (min-width: 440px){
+            height: 50%;
+            width: 100%;
+        }
+        @media  screen and (min-width: 1200px){
+            width: 50%;
+            height:100%;
+            
+
+        }
+          
+           
+        img{
+            @media  screen and (min-width: 440px){
+                margin-top: 35px;
+                width: 100%;
+                height:40%;
+                object-fit: cover;
+                border-radius: 10px;
+            }}
+           
+            img{
+                @media  screen and (min-width: 850px){
+                    margin-top: 35px;
+                    width:80%;
+                    height:60%;
+                    object-fit: cover;
+                }
+        }
+        img{
+            @media  screen and (min-width: 1200px){
+                margin-top: 35px;
+                width: 70%;
+                height:80%;
+                object-fit: cover;
+            }
+    }
+        }
+    
+    h2{
+        display: flex;
+        flex-direction: row;
+    }
+
+}
+.actor-images{
+   display: flex;
+   flex-wrap: wrap;
+}

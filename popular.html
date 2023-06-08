@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/styles.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+    <title>Popular</title>
+</head>
+<body>
+    <header>
+        <div class="navigation">
+          <!-- Le logo -->
+          <div class="logo">
+            <a href="index.html">
+              <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg" alt="">
+            </a>
+          </div>
+          <!-- La navigation -->
+          <nav>
+            <a href="index.html" class="active">Home</a>
+            <a href="rated.html">Top-rated</a>
+            <a href="tv.html">TV</a>
+            <a href="popular.html">Popular</a>
+          </nav>
+        </div>
+    </header>
+     <!--------------- fin du header ---------------->
+     <div class="flex">
+      <div class="titre-pop"> <button class="film-pop-btn" ><a href="popular.html">Popular</a></button></div>
+      <div class="titre-pop"> <button class="film-pop-btn" ><a href="index.html">Page Home</a></button></div>
+    </div>
+    <div class="flex2">
+      <div class="contenaire"></div>
+      <button class="more-button">plus</button>
+      <div class="contenaire2"></div>
+    </div>
+<!-- Ajoutez ce code à votre page HTML où vous souhaitez afficher le modal -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2 id="modalTitle"></h2>
+    <div id="modalDetails">
+      <div class="modal-image">
+        <img id="modalImage" src="">
+      </div>
+      <div class="modal-info">
+        <p id="modalOverview"></p>
+        <p id="modalDate"></p>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="js/popular.js"></script>
+</body>
+</html>

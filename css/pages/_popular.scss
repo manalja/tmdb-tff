@@ -146,11 +146,20 @@ padding: 8px 8px;
 .contenaire2{
 width: 1200px;
 margin: 0 auto;
+@media  screen and (min-width: 1200px){
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  width: 1200px;
+  margin: 0 auto;
+  height: 550px;
+}
 }
 
 // le contenaire des resultas/////////////////
 .contenaire{
-   
+  width: 1200px;
+  margin: 0 auto;
     h3{
        margin: 0;
        text-align: center;
@@ -212,7 +221,7 @@ margin: 0 auto;
             margin-top: 20px;
             display: flex;
             flex-direction: row;
-            gap: 0.5em;
+            gap: 1em;
             width: 45%;
             height:200px;
         }

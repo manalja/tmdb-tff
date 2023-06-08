@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+    <script src="https://kit.fontawesome.com/5c9c13cceb.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/styles.min.css">
+    <title>Détails du film</title>
+</head>
+<body>
+
+    <header>
+        <div class="navigation">
+          <!-- Le logo -->
+          <div class="logo">
+            <a href="index.html">
+              <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg" alt="">
+            </a>
+          </div>
+          <!-- La navigation -->
+          <nav>
+            <a href="index.html">Home</a>
+            <a href="rated.html">Top-rated</a>
+            <a href="tv.html">TV</a>
+            <a href="popular.html">Popular</a>
+          </nav>
+        </div>
+      </header>
+      <h1>Détails du film</h1>
+      <div class="bg-detail">
+        <div id="movieDetails"></div>
+        <div id="movieDetails"></div>
+      </div>
+      <div class="autre-details"></div>
+
+    </div>
+    <footer>
+        <div class="all-footer">
+          <div class="logo-footer">
+            <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg" alt="">
+          </div>
+          <div class="content">
+            <div class="content-1">
+              <h3>Menu </h3>
+                 <a href="rated.html">Top-rated</a>
+                 <a href="tv.html">Séries télévisées</a>
+                 <a href="popular.html">Popular</a>
+            </div>
+            <div class="content-2">
+              <h3>COMMUNAUTÉ</h3>
+                 <a href="rated.html"> Règles</a>
+                 <a href="tv.html"> Conversations</a>
+                 <a href="popular.html"> Top contributions</a>
+            </div>
+            <div class="content-2">
+              <h3>MENTIONS LÉGALES</h3>
+                 <a href="rated.html"> Conditions d'utilisation</a>
+                 <a href="tv.html">  Conditions d'utilisation API</a>
+                 <a href="popular.html"> Politique de confidentialité</a>
+            </div>
+            <div class="content-2">
+              <h3>S'IMPLIQUER</h3>
+                 <a href="rated.html"> Bible des contributions</a>
+                 <a href="tv.html">  Ajouter un film</a>
+                 <a href="popular.html">  Ajouter une émission TV</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <script>
+       // Récupérer l'identifiant de la série TV à partir de l'URL de la page
+var url = new URL(window.location.href);
+var serieId = url.searchParams.get("serieId");
+
+// URL de l'API pour obtenir les détails de la série TV
+var apiUrl = `https://api.themoviedb.org/3/tv/${serieId}?api_key=a8474f1d2890e5292bbea59b0d600a91&language=fr`;
+
+// Récupérer les détails de la série TV
+fetch(apiUrl)
+  .then(response => response.json())
+  .then(serieData => {
+    var movieDetails = document.getElementById('movieDetails');
+
+    var img = document.createElement('img');
+    img.src = 'https://image.tmdb.org/t/p/w500' + serieData.poster_path;
+    img.alt = serieData.name;
+    movieDetails.appendChild(img);
+
+    var title = document.createElement('h2');
+    title.textContent = serieData.name;
+    movieDetails.appendChild(title);
+
+    // Résumé
+    var summary = document.createElement('p');
+    summary.textContent = serieData.overview;
+    movieDetails.appendChild(summary);
+
+    // Date de sortie
+    var releaseDate = document.createElement('p');
+    releaseDate.textContent = 'Date de sortie : ' + serieData.first_air_date;
+    movieDetails.appendChild(releaseDate);
+
+    // Réalisateur
+    var createdBy = serieData.created_by;
+    if (createdBy && createdBy.length > 0) {
+      var director = document.createElement('p');
+      director.textContent = 'Réalisateur : ' + createdBy[0].name;
+      movieDetails.appendChild(director);
+    }
+
+    // URL de l'API pour obtenir les crédits de la série TV
+    var creditsUrl = `https://api.themoviedb.org/3/tv/${serieId}/credits?api_key=a8474f1d2890e5292bbea59b0d600a91`;
+
+    // Récupérer les crédits de la série TV
+    fetch(creditsUrl)
+      .then(response => response.json())
+      .then(creditsData => {
+        var cast = creditsData.cast;
+
+        // Acteurs
+        if (cast && cast.length > 0) {
+          var actorsContainer = document.createElement('div');
+          actorsContainer.classList.add('actors-container');
+          movieDetails.appendChild(actorsContainer);
+
+          for (var i = 0; i < cast.length; i++) {
+            var actor = cast[i];
+
+            var actorContainer = document.createElement('div');
+            actorContainer.classList.add('actor');
+
+            var actorImg = document.createElement('img');
+            actorImg.src = 'https://image.tmdb.org/t/p/w500' + actor.profile_path;
+            actorImg.alt = actor.name;
+            actorContainer.appendChild(actorImg);
+
+            var actorName = document.createElement('p');
+            actorName.textContent = actor.name;
+            actorContainer.appendChild(actorName);
+
+            actorsContainer.appendChild(actorContainer);
+          }
+        }
+      })
+      .catch(error => {
+        console.error("Erreur lors de la récupération des détails des acteurs :", error);
+      });
+
+    // Vote
+    var vote = document.createElement('p');
+    vote.textContent = 'Vote : ' + serieData.vote_average;
+    movieDetails.appendChild(vote);
+
+    // Popularité
+    var popularity = document.createElement('p');
+    popularity.textContent = 'Popularité : ' + serieData.popularity;
+    movieDetails.appendChild(popularity);
+  })
+  .catch(error => {
+    console.error("Erreur lors de la récupération des détails de la série TV :", error);
+  });
+      </script>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+</body>
+</html>

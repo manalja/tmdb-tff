@@ -1,0 +1,80 @@
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    background: #080c33;
+    width:100% ;
+    height: 70px;
+  }
+header{
+    display: flex;
+   justify-content: space-around;
+    width:100% ;
+    height: 70px;
+    background: #080c33;
+   
+    .navigation{
+        width: 100%;
+        display:flex;
+    flex-direction: row;
+    gap: 2em;
+    align-items: center;
+    @media  screen and (min-width: 850px){
+        gap: 25em;
+    }
+    @media  screen and (min-width: 1200px){
+       gap: 80em;
+       font-size: 17px;
+    }
+ 
+    
+   
+    nav{
+        display: flex;
+      flex-direction: row;
+      gap: 1em;
+    width: 100%;
+    }
+        
+        a{
+            text-decoration: none;
+            color: white;
+            font-weight:bolder;
+           
+        }
+        a:nth-of-type(1){
+            border: 0;
+        }
+        a:hover{
+          
+            color: #8eccc9;
+        }
+        
+    }
+    .logo{
+        margin-left: 20px;
+        @media  screen and (min-width: 440px){
+            margin-left: 0;
+        }
+      
+        img{
+            padding-left: 10px;
+            width: 150px;
+            object-fit: cover;
+            @media  screen and (min-width: 1200px){
+                width: 230px;
+                padding-left: 20px;
+            }
+        }
+        a{
+            text-decoration: none;
+            color: #080c33;
+            width: 250px;
+        }
+       
+       
+    }
+    
+    
+}

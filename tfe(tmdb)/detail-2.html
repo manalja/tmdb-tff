@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+    <script src="https://kit.fontawesome.com/5c9c13cceb.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/styles.min.css">
+    <title>Détails du film</title>
+</head>
+<body>
+
+    <header>
+        <div class="navigation">
+          <!-- Le logo -->
+          <div class="logo">
+            <a href="index.html">
+              <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg" alt="">
+            </a>
+          </div>
+          <!-- La navigation -->
+          <nav>
+            <a href="index.html">Home</a>
+            <a href="rated.html">Top-rated</a>
+            <a href="tv.html">TV</a>
+            <a href="popular.html">Popular</a>
+          </nav>
+        </div>
+      </header>
+      <h1>Détails du film</h1>
+      <div class="bg-detail">
+        <div id="movieDetails"></div>
+      </div>
+      <div class="autre-details"></div>
+
+    </div>
+    <footer>
+        <div class="all-footer">
+          <div class="logo-footer">
+            <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg" alt="">
+          </div>
+          <div class="content">
+            <div class="content-1">
+              <h3>Menu </h3>
+                 <a href="rated.html">Top-rated</a>
+                 <a href="tv.html">Séries télévisées</a>
+                 <a href="popular.html">Popular</a>
+            </div>
+            <div class="content-2">
+              <h3>COMMUNAUTÉ</h3>
+                 <a href="rated.html"> Règles</a>
+                 <a href="tv.html"> Conversations</a>
+                 <a href="popular.html"> Top contributions</a>
+            </div>
+            <div class="content-2">
+              <h3>MENTIONS LÉGALES</h3>
+                 <a href="rated.html"> Conditions d'utilisation</a>
+                 <a href="tv.html">  Conditions d'utilisation API</a>
+                 <a href="popular.html"> Politique de confidentialité</a>
+            </div>
+            <div class="content-2">
+              <h3>S'IMPLIQUER</h3>
+                 <a href="rated.html"> Bible des contributions</a>
+                 <a href="tv.html">  Ajouter un film</a>
+                 <a href="popular.html">  Ajouter une émission TV</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <script>
+        // Récupérer l'identifiant de la série TV à partir des paramètres d'URL
+        var queryString = window.location.search;
+        var urlParams = new URLSearchParams(queryString);
+        var serieId = urlParams.get('serieId');
+      
+        // Effectuer une requête pour obtenir les détails de la série TV correspondante
+        fetch(`https://api.themoviedb.org/3/tv/${serieId}?api_key=a8474f1d2890e5292bbea59b0d600a91&language=fr`)
+          .then(response => response.json())
+          .then(serieData => {
+            var voteAverage = serieData.vote_average.toFixed(1);
+            // Créer le template pour les détails de la série TV
+            var movieDetailsTemplate = `
+              <div class="movie-poster">
+                <img src="https://image.tmdb.org/t/p/w500${serieData.poster_path}">
+              </div>
+              <div class="text">
+                <h2 class="movie-title">${serieData.name}</h2>
+                <i class="fa-sharp fa-solid fa-heart fa-lg" style="color: #eb94ad;"></i>
+                <i class="fa-sharp fa-solid fa-comment  fa-lg" style="color: #eb94ad;"></i>
+                <i class="fa-solid fa-bookmark  fa-lg " style="color: #eb94ad;"></i>
+                <i class="fa-sharp fa-solid fa-star fa-lg " style="color: #eb94ad;"></i>
+                <p class="movie-overview">${serieData.overview}</p>
+                <p class="vote">${voteAverage}</p>
+                <p><strong>Popularity</strong>: ${serieData.popularity}</p>
+                <p><strong>Vote acount</strong>: ${serieData.vote_count}</p>
+                <span><strong>Date de sortie</strong>: ${serieData.first_air_date}</span>
+                <p><strong>Réalisateur</strong>: ${serieData.created_by[0].name}</p>
+              
+                <div class="actor-images"></div>
+              </div>
+            `;
+      
+            // Afficher les détails de la série TV en ajoutant le template au conteneur correspondant
+            var movieDetails = document.getElementById('movieDetails');
+            movieDetails.innerHTML = movieDetailsTemplate;
+      
+            // Récupérer le conteneur des images d'acteurs
+            var actorImagesContainer = document.querySelector('.actor-images');
+      
+            // Récupérer les détails des acteurs
+            var creditsURL = `https://api.themoviedb.org/3/tv/${serieId}/credits?api_key=a8474f1d2890e5292bbea59b0d600a91&language=fr`;
+            fetch(creditsURL)
+              .then(response => response.json())
+              .then(creditsData => {
+                var cast = creditsData.cast;
+                for (var i = 0; i < 4; i++) {
+                  var actor = cast[i];
+      
+                  var actorContainer = document.createElement('div');
+                  actorContainer.classList.add('actor-container');
+      
+                  var actorImg = document.createElement('img');
+                  actorImg.src = 'https://image.tmdb.org/t/p/w500' + actor.profile_path;
+                  actorImg.alt = actor.name;
+                  actorImg.classList.add('actor-images'); // Ajoutez la classe souhaitée ici
+      
+                  var actorName = document.createElement('p');
+                  actorName.textContent = actor.name;
+      
+                  actorContainer.appendChild(actorImg);
+                  actorContainer.appendChild(actorName);
+                  actorImagesContainer.appendChild(actorContainer);
+                }
+              })
+              .catch(error => {
+                console.error("Erreur lors de la récupération des détails des acteurs :", error);
+              });
+          })
+          .catch(error => {
+            console.error("Erreur lors de la récupération des détails de la série TV :", error);
+          });
+      </script>
+
+
+</body>
+</html>

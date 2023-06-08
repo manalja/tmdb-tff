@@ -80,8 +80,6 @@ function fetchPopularMovies(page) {
         slidesPerView: 3,
         spaceBetween: 20,
         slidesPerGroup: 1,
-       
-      
         // Ajoutez d'autres options selon vos besoins
       });
     })
@@ -154,11 +152,9 @@ fetch(`https://api.themoviedb.org/3/movie/popular?api_key=a8474f1d2890e5292bbea5
 
         // Initialiser le swiper
         new Swiper(swiperContainer, {
-          slidesPerView: 4,
-          spaceBetween: 10,
+          slidesPerView: 1,
+          spaceBetween: 20,
           slidesPerGroup: 1,
-        
-        
         
         });
       })
@@ -215,19 +211,14 @@ fetch(`https://api.themoviedb.org/3/tv/top_rated?api_key=a8474f1d2890e5292bbea59
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
-      
-    
-        // when window width is >= 480px
-       
-      }
-    
+      },
     });
   })
   .catch(error => {
     console.error("Erreur lors de la récupération des séries TV top rated :", error);
   });
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-// Récupérer les séries TV populaires
+// les series tv ////////////////////////////////////////::
 fetch(`https://api.themoviedb.org/3/tv/popular?api_key=a8474f1d2890e5292bbea59b0d600a91&language=fr&page=1`)
   .then(response => response.json())
   .then(data => {
@@ -239,28 +230,27 @@ for (var i = 0; i < 20; i++) {
   var slide = document.createElement('div');
   slide.classList.add('swiper-slide');
   slide.innerHTML = `
-  <div class="tv-series" data-id="${serie.id}">
-    <a href="detail-3.html?serieId=${encodeURIComponent(serie.id)}">
+    <div class="tv-series" data-id="${serie.id}">
       <img src="https://image.tmdb.org/t/p/w500${serie.poster_path}" alt="${serie.name}">
       <h3>${serie.name}</h3>
       <p>${serie.vote_average}</p>
-    </a>
-  </div>
-`;
+    </div>
+  `;
 
   slide.addEventListener('click', function() {
     var serieId = this.getAttribute('data-id');
-    console.log(serieId); // Ajoutez cette ligne pour afficher la valeur de serieId
+
+    // Rediriger vers la page detail-3.html avec l'identifiant de la série TV
     window.location.href = 'detail-3.html?serieId=' + serieId;
   });
 
   swiperWrapper.appendChild(slide);
 }
 
+
     new Swiper('.swiper-container.tv', {
       slidesPerView: 1,
       spaceBetween: 10,
-     
       loop: true,
       navigation: {
         nextEl: '.swiper-button-next',
@@ -269,20 +259,8 @@ for (var i = 0; i < 20; i++) {
     });
   })
   .catch(error => {
-    console.error("Erreur lors de la récupération des détails de la série :", error);
-  })
-  const currentUrl = new URL(window.location.href);
-  const params = new URLSearchParams(currentUrl.search);
-  const serieId = params.get('serieId');
-  
-  if (serieId) {
-    fetchSerieDetails(serieId)
-      .then(serie => {
-        displaySerieDetails(serie);
-      });
-  } else {
-    console.log("ID de la série non trouvé dans l'URL.");
-  }
+    console.error("Erreur lors de la récupération des séries TV populaires :", error);
+  });
 
 
 

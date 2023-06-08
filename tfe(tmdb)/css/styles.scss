@@ -1,0 +1,20 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+@import 'base/typography';
+@import 'base/normalize';
+
+@import 'layout/nav';
+@import 'layout/header';
+@import 'layout/footer';
+@import 'layout/forms';
+
+
+@import 'pages/home';
+@import 'pages/about';
+@import 'pages/popular';
+@import 'pages/detail';
+@import 'pages/tv';
+@import 'pages/rated';
+@import 'pages/inscription';
+@import 'pages/detail-2';

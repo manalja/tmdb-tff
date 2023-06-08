@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/styles.min.css">
+    <title>Popular</title>
+</head>
+<body>
+    <header>
+        <div class="navigation">
+          <!-- Le logo -->
+          <div class="logo">
+            <a href="index.html">
+              <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg" alt="">
+            </a>
+          </div>
+          <!-- La navigation -->
+          <nav>
+            <a href="index.html" class="active">Home</a>
+            <a href="rated.html">Top-rated</a>
+            <a href="tv.html">TV</a>
+            <a href="popular.html">Popular</a>
+          </nav>
+        </div>
+    </header>
+     <!--------------- fin du header ---------------->
+     <div class="flex">
+      <div class="titre-pop"> <button class="film-pop-btn" ><a href="popular.html">Popular</a></button></div>
+      <div class="titre-pop"> <button class="film-pop-btn" ><a href="index.html">Page Home</a></button></div>
+    </div>
+    <div class="flex2">
+      <div class="contenaire"></div>
+      <button class="more-button">plus</button>
+      <div class="contenaire2"></div>
+    </div>
+<!-- Ajoutez ce code à votre page HTML où vous souhaitez afficher le modal -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2 id="modalTitle"></h2>
+    <div id="modalDetails">
+      <div class="modal-image">
+        <img id="modalImage" src="">
+      </div>
+      <div class="modal-info">
+        <p id="modalOverview"></p>
+        <p id="modalDate"></p>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  window.addEventListener('scroll', function() {
+    var navigation = document.querySelector('.navigation');
+    var headerHeight = document.querySelector('header').offsetHeight;
+
+    if (window.scrollY > headerHeight) {
+      navigation.classList.add('sticky');
+    } else {
+      navigation.classList.remove('sticky');
+    }
+  });
+
+  var moviesContainer = document.querySelector('.contenaire');
+  var nextPageContainer = document.querySelector('.contenaire2');
+  var moreButton = document.querySelector('.more-button');
+
+  fetch('https://api.themoviedb.org/3/movie/popular?api_key=a8474f1d2890e5292bbea59b0d600a91&language=fr&page=2&page=2')
+    .then(response => response.json())
+    .then(data => {
+      var movies = data.results;
+
+      var myTemplate = '';
+
+      for (var i = 0; i < 10; i++) {
+        var movie = movies[i];
+        var title = movie.title;
+        var posterPath = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'img/R.jpg';
+        var overview = movie.overview;
+        var releaseDate = movie.release_date;
+        var voteAverage = movie.vote_average.toFixed(1);
+
+        myTemplate += `
+          <div class="box">
+            <div class="image">
+              <img src="${posterPath}">
+            </div>
+            <div class="review">
+              <h4>${title}</h4>
+              <p class="vote"> ${voteAverage}</p>
+              <p class="release-date">Date de sortie: ${releaseDate}</p>
+            </div>
+          </div>
+        `;
+      }
+
+      moviesContainer.innerHTML = myTemplate;
+
+      // Récupérer la référence du modal et du bouton de fermeture
+      var modal = document.getElementById("myModal");
+      var closeModal = document.getElementsByClassName("close")[0];
+
+      // Gérer l'événement de clic sur la boîte pour afficher le modal
+      var boxes = document.querySelectorAll(".box");
+      boxes.forEach(function(box) {
+        box.addEventListener("click", function() {
+          var title = box.querySelector("h4").textContent;
+          var imageSrc = box.querySelector("img").src;
+          var overview = movie.overview;
+          var releaseDate = box.querySelector(".review .release-date").textContent;
+
+          document.getElementById("modalTitle").textContent = title;
+          document.getElementById("modalImage").src = imageSrc;
+          document.getElementById("modalOverview").textContent = overview;
+          document.getElementById("modalDate").textContent = releaseDate;
+
+          modal.style.display = "block";
+        });
+      });
+
+      // Gérer l'événement de clic sur le bouton de fermeture pour masquer le modal
+      closeModal.addEventListener("click", function() {
+        modal.style.display = "none";
+      });
+
+      // Gérer l'événement de clic sur le bouton "plus" pour charger la deuxième page de résultats
+      moreButton.addEventListener("click", function() {
+        nextPageContainer.innerHTML = ''; // Effacer le contenu précédent du conteneur de la deuxième page
+
+        fetch('https://api.themoviedb.org/3/movie/popular?api_key=a8474f1d2890e5292bbea59b0d600a91&language=fr&page=3')
+          .then(response => response.json())
+          .then(data => {
+            var nextPageMovies = data.results;
+
+            var nextPageTemplate = '';
+
+            for (var i = 0; i < 10; i++) {
+              var movie = nextPageMovies[i];
+              var title = movie.title;
+              var posterPath = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'img/R.jpg';
+              var overview = movie.overview;
+              var releaseDate = movie.release_date;
+              var voteAverage = movie.vote_average.toFixed(1);
+
+              nextPageTemplate += `
+                <div class="box">
+                  <div class="image">
+                    <img src="${posterPath}">
+                  </div>
+                  <div class="review">
+                    <h4>${title}</h4>
+                    <p class="vote"> ${voteAverage}</p>
+                    <p>Popularity: ${movie.popularity}</p>
+                    <p class="release-date">Date: ${releaseDate}</p>
+                  </div>
+                </div>
+              `;
+            }
+
+            nextPageContainer.innerHTML = nextPageTemplate;
+            moreButton.style.display = "none"; // Masquer le bouton "plus" après avoir affiché la deuxième page
+          })
+          .catch(error => {
+            console.error("Erreur lors de la récupération de la deuxième page de films populaires :", error);
+          });
+      });
+    })
+    .catch(error => {
+      console.error("Erreur lors de la récupération des films populaires :", error);
+    });
+</script>
+</body>
+</html>

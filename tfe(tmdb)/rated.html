@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.min.css">
+    <title>Top-rated</title>
+</head>
+<body>
+  <div class="scroll-line"></div>
+  <header>
+    <div class="navigation">
+      <!-- Le logo -->
+      <div class="logo">
+        <a href="index.html">
+          <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg" alt="">
+        </a>
+      </div>
+      <!-- La navigation -->
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="rated.html">Top-rated</a>
+        <a href="tv.html">TV</a>
+        <a href="popular.html">Popular</a>
+      </nav>
+    </div>
+  </header>
+ <!--------------- fin du header ---------------->
+ 
+ <div class="flex">
+   <div class="titre-pop"> <button class="film-pop-btn" ><a href="rated.html">Top-rated</a></button></div>
+   <div class="titre-pop"> <button class="film-pop-btn" ><a href="index.html">Page Home</a></button></div>
+ </div>
+ <div class="flex2">
+   <div class="contenaire"></div>
+   <button class="more-button">plus</button>
+   <div class="contenaire2"></div>
+ </div>
+
+  <!-- Modifier la structure du contenu dans le modal -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <div id="modalActors"></div>
+      <img id="modalImage" src="" alt="Image de la série de télévision">
+      <p id="modalOverview"></p>
+      <p id="modalDate"></p>
+    </div>
+  </div>
+  <script>
+    window.addEventListener('scroll', function() {
+      var navigation = document.querySelector('.navigation');
+      var headerHeight = document.querySelector('header').offsetHeight;
+  
+      if (window.scrollY > headerHeight) {
+        navigation.classList.add('sticky');
+      } else {
+        navigation.classList.remove('sticky');
+      }
+    });
+  
+    var currentPage = 1;
+    var totalResults = 0;
+    var resultsPerPage = 10;
+    var totalPages = 0;
+    var topRatedData = [];
+  
+    var contenairDiv = document.querySelector('.contenaire');
+    var contenairDiv2 = document.querySelector('.contenaire2');
+  
+    // Fonction pour afficher les séries top-rated dans un conteneur spécifié
+    function displayTopRatedSeries(data, contenaire) {
+      var series = data.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
+      var template = '';
+  
+      series.forEach(serie => {
+        var title = serie.name;
+        var overview = serie.overview;
+        var date = serie.first_air_date;
+        var imageSrc = serie.poster_path ? `https://image.tmdb.org/t/p/w500${serie.poster_path}` : 'img/R.jpg';
+  
+        template += `
+          <div class="box">
+            <div class="image">
+              <img src="${imageSrc}" alt="${title}">
+            </div>
+            <div class="review">
+              <h4>${title}</h4>
+              <p>Date: ${date}</p>
+              <p>Popularity: ${serie.popularity}</p>
+              <p class="vote">${serie.vote_average}</p>
+              <p class="overview">${overview}</p>
+            </div>
+          </div>
+        `;
+      });
+  
+      contenaire.innerHTML += template;
+  
+      // Ajouter un gestionnaire d'événements "click" à chaque boîte
+      var boxes = contenaire.querySelectorAll('.box');
+      boxes.forEach(box => {
+        box.addEventListener('click', function() {
+          var title = this.querySelector('h4').textContent;
+          var overview = this.querySelector('.overview').textContent;
+          var imageSrc = this.querySelector('img').src;
+          var date = this.querySelector('.review > p:nth-child(2)').textContent;
+  
+          document.getElementById('modalTitle').textContent = title;
+          document.getElementById('modalOverview').textContent = overview;
+          document.getElementById('modalImage').src = imageSrc;
+          document.getElementById('modalDate').textContent = date;
+  
+          var modal = document.getElementById('myModal');
+          modal.style.display = 'block';
+  
+          // Ajoutez le code pour afficher les images et les noms des acteurs ici
+          // Utilisez les données de la série sélectionnée
+        });
+      });
+    }
+  
+    // Fonction pour charger les données de la page suivante
+    function loadNextPage() {
+      currentPage++;
+  
+      if (currentPage <= totalPages) {
+        displayTopRatedSeries(topRatedData, contenairDiv2);
+      }
+  
+      if (currentPage === totalPages) {
+        var moreButton = document.querySelector('.more-button');
+        moreButton.style.display = 'none';
+      }
+    }
+  
+    // Les séries top_rated sur la colonne à gauche
+    fetch(`https://api.themoviedb.org/3/tv/top_rated?api_key=a8474f1d2890e5292bbea59b0d600a91&language=fr&page=3`)
+      .then(response => response.json())
+      .then(data => {
+        topRatedData = data.results;
+        totalResults = topRatedData.length;
+        totalPages = Math.ceil(totalResults / resultsPerPage);
+  
+        displayTopRatedSeries(topRatedData, contenairDiv);
+  
+        // Gérer l'événement de clic sur le bouton "Plus"
+        var moreButton = document.querySelector('.more-button');
+        moreButton.addEventListener('click', loadNextPage);
+      })
+      .catch(error => {
+        console.error("Erreur lors de la récupération des séries TV top rated :", error);
+      });
+  
+    window.addEventListener('scroll', function() {
+      var navigation = document.querySelector('.navigation');
+      var headerHeight = document.querySelector('header').offsetHeight;
+      var scrollLine = document.querySelector('.scroll-line');
+      var pageHeight = document.documentElement.scrollHeight - window.innerHeight;
+      var scrollPosition = window.pageYOffset;
+      var scrollPercentage = (scrollPosition / pageHeight) * 100;
+  
+      if (window.scrollY > headerHeight) {
+        navigation.classList.add('sticky');
+      } else {
+        navigation.classList.remove('sticky');
+      }
+  
+      scrollLine.style.width = scrollPercentage + '%';
+    });
+  
+    // Gérer l'événement de clic sur le bouton de fermeture pour masquer le modal
+    var closeModal = document.querySelector('.close');
+    closeModal.addEventListener('click', function() {
+      var modal = document.getElementById('myModal');
+      modal.style.display = 'none';
+    });
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Détails du film</title>
+</head>
+<body>
+
+    
+    <h1>Détails du film</h1>
+  
+    <div class="details" ></div>
+
+    <script>
+        // Récupérer les détails du film à partir de la requête
+        var queryString = window.location.search;
+        var urlParams = new URLSearchParams(queryString);
+        var encodedDetailsFilm = urlParams.get('film');
+      
+        // Décoder les détails du film depuis Base64
+        var detailsFilmJSON = atob(encodedDetailsFilm);
+        var detailsFilm = JSON.parse(detailsFilmJSON);
+      
+        // Afficher les détails du film dans la page
+        var detailsDiv = document.querySelector('.details');
+        detailsDiv.innerHTML = `
+          <h2>${detailsFilm.titre}</h2>
+          <p>Date de sortie: ${detailsFilm.dateSortie}</p>
+          <p>Note: ${detailsFilm.note}</p>
+          <!-- Ajoutez d'autres éléments pour afficher plus de détails du film si nécessaire -->
+        `;
+      </script>
+
+
+</body>
+</html>
